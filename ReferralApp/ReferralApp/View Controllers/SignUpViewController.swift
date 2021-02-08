@@ -3,6 +3,7 @@
 //  ReferralApp
 //
 //  Created by Avinash Sivakumar on 2/7/21.
+//  Edited by Sumedh Garimella on 2/8/21.
 //
 import FirebaseAuth
 import Firebase
@@ -56,7 +57,7 @@ class SignUpViewController: UIViewController {
     func validatefields() -> String? {
         if firstNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || lastNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == ""{
             
-            return "Please fill all fields"
+            return "Please fill all necessary fields"
         }
         
         
@@ -64,7 +65,7 @@ class SignUpViewController: UIViewController {
         let cleanedPassword = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if Utilities.isPasswordValid(cleanedPassword) == false {
-            return "Make a better password"
+            return "Your password is not strong enough. Use both uppercase and lowercase letters, some punctuation, and other appropriate characters to make it secure."
         }
         
         
@@ -90,7 +91,7 @@ class SignUpViewController: UIViewController {
             
             Auth.auth().createUser(withEmail: email, password: password) { (result, err) in
                 if err != nil {
-                    self.showError(message: "error creating user")
+                    self.showError(message: "The user could not be created.")
                 } else {
                     
                     let db = Firestore.firestore()
